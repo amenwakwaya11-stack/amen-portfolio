@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Sosi! 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffb7c5, #ffd1dc);
+            font-family: 'Segoe UI', 'Comic Sans MS', cursive;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            max-width: 550px;
+            width: 100%;
+            background: white;
+            border-radius: 50px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.15);
+            border: 3px solid #ffb7c5;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            color: #ff6b9d;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .name {
+            background: #ffb7c5;
+            display: inline-block;
+            padding: 6px 28px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            background: #fff5f8;
+            padding: 22px;
+            border-radius: 35px;
+            margin: 20px 0;
+            border: 2px solid #ffd1dc;
+        }
+
+        .message p {
+            color: #b1547a;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .btn {
+            background: #ff6b9d;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 8px 5px;
+            transition: transform 0.2s;
+            box-shadow: 0 3px 8px rgba(255,107,157,0.3);
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .cake-box {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: #fff0f3;
+            border-radius: 45px;
+            border: 2px solid #ffb7c5;
+        }
+
+        .cake-box.show {
+            display: block;
+            animation: bounceIn 0.4s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .candle {
+            font-size: 3rem;
+            cursor: pointer;
+            display: inline-block;
+            transition: transform 0.1s;
+        }
+
+        .candle:active {
+            transform: scale(0.9);
+        }
+
+        .cake-emoji {
+            font-size: 5rem;
+            margin: 5px 0;
+        }
+
+        .wish-text {
+            background: white;
+            padding: 8px 18px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: #ff6b9d;
+            font-weight: bold;
+        }
+
+        .gifts {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .gift {
+            background: #ffe4e9;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: #ff6b9d;
+            cursor: pointer;
+            font-weight: bold;
+            border: 1px solid #ffb7c5;
+            transition: all 0.2s;
+        }
+
+        .gift:hover {
+            background: #ffb7c5;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .gift:active {
+            transform: scale(0.96);
+        }
+
+        .surprise {
+            margin-top: 20px;
+            padding: 14px;
+            background: #fff5f8;
+            border-radius: 35px;
+            color: #b1547a;
+            min-height: 75px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            border-left: 5px solid #ff6b9d;
+        }
+
+        /* Floating hearts */
+        .heart {
+            position: fixed;
+            pointer-events: none;
+            font-size: 1rem;
+            animation: floatHeart 6s ease-out forwards;
+            z-index: 999;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.8;
+            }
+            85% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-20vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 9px;
+            height: 9px;
+            top: -15px;
+            pointer-events: none;
+            z-index: 999;
+            animation: fallConfetti 2.2s linear forwards;
+        }
+
+        @keyframes fallConfetti {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Popup message */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ff6b9d;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            z-index: 10000;
+            white-space: nowrap;
+            border: 3px solid white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: popupAnim 2.2s ease forwards;
+        }
+
+        @keyframes popupAnim {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.7);
+            }
+            20% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+            40% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1);
+                visibility: hidden;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>🎀 Happy Birthday! 🎀</h1>
+    <div class="name">💖 SOSI 💖</div>
+    
+    <div class="message">
+        <p>
+            💕 To my sweetest sister Sosi! 💕<br><br>
+            You're the cutest, prettiest,<br>
+            most amazing sister in the world! 🌸<br><br>
+            Your smile makes everything brighter! 🫂<br><br>
+            I love you more than words can say!<br>
+            Have the most wonderful birthday ever! 🎀✨<br><br>
+            Love always,<br>
+            Your sister 💗
+        </p>
+    </div>
+
+    <button class="btn" id="wishBtn">🎂✨ Make a Wish! ✨🎂</button>
+
+    <div id="cakeContainer" class="cake-box">
+        <div>
+            <div id="candleLight" class="candle">🕯️🕯️🕯️</div>
+            <div class="cake-emoji">🎂</div>
+            <div id="wishMsg" class="wish-text">💫 Tap the candles! Make a wish! 💫</div>
+        </div>
+    </div>
+
+    <div class="gifts">
+        <div class="gift" data-msg="💝 A BIG warm hug just for you! Squeeze tight! 🤗💝">🤗 Get a Hug</div>
+        <div class="gift" data-msg="🍰 A giant slice of birthday cake! You deserve all the sweetness! 🎂🍰">🍰 Have Cake</div>
+        <div class="gift" data-msg="✨ A magical unicorn that brings you happiness and sparkles every day! 🦄✨💖">🦄 Magic Gift</div>
+    </div>
+
+    <div id="surpriseBox" class="surprise">💖 Click a gift above for a sweet surprise! 💖</div>
+</div>
+
+<script>
+    // Get all elements
+    const wishBtn = document.getElementById('wishBtn');
+    const cakeContainer = document.getElementById('cakeContainer');
+    const candleLight = document.getElementById('candleLight');
+    const wishMsg = document.getElementById('wishMsg');
+    const surpriseBox = document.getElementById('surpriseBox');
+    const gifts = document.querySelectorAll('.gift');
+
+    let wishMade = false;
+
+    // Show popup message
+    function showPopup(text) {
+        const pop = document.createElement('div');
+        pop.className = 'popup';
+        pop.textContent = text;
+        document.body.appendChild(pop);
+        setTimeout(() => pop.remove(), 2200);
+    }
+
+    // Create floating hearts
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        const icons = ['❤️', '💖', '💕', '🌸', '🎀', '✨', '⭐', '💗', '💝', '🎂'];
+        heart.textContent = icons[Math.floor(Math.random() * icons.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.fontSize = (Math.random() * 1 + 0.8) + 'rem';
+        heart.style.animationDuration = (Math.random() * 5 + 4) + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5500);
+    }
+
+    // Start floating hearts
+    setInterval(createHeart, 1800);
+    for(let i = 0; i < 8; i++) setTimeout(createHeart, i * 250);
+
+    // Create confetti
+    function makeConfetti(count = 80) {
+        const colors = ['#ffb7c5', '#ff6b9d', '#ff9eb5', '#ffd1dc', '#ff85a1', '#ffb347'];
+        for (let i = 0; i < count; i++) {
+            const conf = document.createElement('div');
+            conf.className = 'confetti';
+            conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            conf.style.left = Math.random() * 100 + '%';
+            conf.style.width = (Math.random() * 10 + 5) + 'px';
+            conf.style.height = conf.style.width;
+            conf.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+            document.body.appendChild(conf);
+            setTimeout(() => conf.remove(), 2200);
+        }
+        
+        // Add extra hearts with confetti
+        for(let h = 0; h < 12; h++) {
+            setTimeout(() => createHeart(), h * 60);
+        }
+    }
+
+    // Show cake
+    wishBtn.onclick = () => {
+        if (cakeContainer.style.display === 'none' || cakeContainer.style.display === '') {
+            cakeContainer.style.display = 'block';
+            cakeContainer.classList.add('show');
+            makeConfetti(40);
+            showPopup('🎀 Yay! Make a wish Sosi! 🎀');
+            cakeContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+            makeConfetti(25);
+            showPopup('✨ Tap the candles to make a wish! ✨');
+        }
+    };
+
+    // Make wish (blow candles)
+    candleLight.onclick = (e) => {
+        e.stopPropagation();
+        
+        if (cakeContainer.style.display === 'none' || cakeContainer.style.display === '') {
+            cakeContainer.style.display = 'block';
+            cakeContainer.classList.add('show');
+            setTimeout(() => {
+                wishMade = true;
+                candleLight.innerHTML = '✨💖✨';
+                wishMsg.innerHTML = '🎉💕 WISH GRANTED! Happy Birthday Sosi! 💕🎉';
+                makeConfetti(150);
+                showPopup('🎂✨ HAPPY BIRTHDAY SOSI! I LOVE YOU SO MUCH! ✨🎂');
+                for(let i = 0; i < 25; i++) setTimeout(() => createHeart(), i * 60);
+            }, 200);
+        } 
+        else if (!wishMade) {
+            wishMade = true;
+            candleLight.innerHTML = '✨💖✨';
+            wishMsg.innerHTML = '🎉💕 WISH GRANTED! Happy Birthday Sosi! 💕🎉';
+            makeConfetti(150);
+            showPopup('🎂✨ HAPPY BIRTHDAY SOSI! I LOVE YOU SO MUCH! ✨🎂');
+            for(let i = 0; i < 25; i++) setTimeout(() => createHeart(), i * 60);
+        } 
+        else {
+            showPopup('💖 Your wish is already flying to the stars! ✨');
+            makeConfetti(40);
+        }
+    };
+
+    // Gifts
+    gifts.forEach(gift => {
+        gift.onclick = () => {
+            const msg = gift.getAttribute('data-msg');
+            surpriseBox.innerHTML = msg;
+            surpriseBox.style.backgroundColor = '#ffe0e8';
+            surpriseBox.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                surpriseBox.style.backgroundColor = '#fff5f8';
+                surpriseBox.style.transform = 'scale(1)';
+            }, 400);
+            makeConfetti(35);
+            showPopup('🎁💝 A special gift just for you! 💝🎁');
+        };
+    });
+
+    // Welcome messages
+    setTimeout(() => showPopup('💖 Welcome Sosi! Happy Birthday! 💖'), 600);
+    setTimeout(() => showPopup('🎀 Click "Make a Wish" to start the magic! 🎀'), 2300);
+    setTimeout(() => showPopup('✨ Tap the candles for confetti and wishes! ✨'), 4000);
+</script>
+</body>
+</html>
